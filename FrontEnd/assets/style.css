@@ -127,7 +127,7 @@ li:hover {
 }
 
 .filters {
-	width: 50%;
+	width: 55%;
     display: flex;
     flex-direction: row;
     margin: 40px;
@@ -217,7 +217,8 @@ footer nav ul {
 /* Medium devices (tablets, less/equal than 1024px) */
 @media (max-width: 1024px) {
 	.filters {
-
+		width: 60%;
+        padding-left: 150px;
 	}
 
 }
