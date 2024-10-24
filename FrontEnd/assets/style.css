@@ -144,7 +144,6 @@ li:hover {
     align-items: center;
     border: 1px solid #1D6154;
 	font-family: 'Syne';
-
 }
 
 .filters>*:hover{
@@ -213,3 +212,12 @@ footer nav ul {
 	margin: 2em
 }
 
+/* Le code ci-dessous correspond à la version responsive uniquement */
+/****** Media queries ***********/
+/* Medium devices (tablets, less/equal than 1024px) */
+@media (max-width: 1024px) {
+	.filters {
+
+	}
+
+}
