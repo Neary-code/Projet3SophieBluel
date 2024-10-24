@@ -17,6 +17,7 @@ async function getWorks() {
     console.error(error.message);
     }
 }
+getWorks();
 
 //Affichage de la galerie
 function setFigure(data) {
@@ -43,6 +44,7 @@ async function getCategories() {
     console.error(error.message);
     }
 }
+getCategories();
 
 //creation des filtres
 function setFilters(data) {
@@ -54,13 +56,45 @@ function setFilters(data) {
 document.querySelector(".filters").append(filters);
 }
 
+function filterWorks(cat) {
+    console.log(cat)
+}
+
 //Ajouter un événement de clic et filtre au bouton Tous
 const buttonAll = document.querySelector(".all");
 buttonAll.addEventListener("click", () => getWorks());
 
-function filterWorks(cat){
-    console.log(cat)
+// Fonction pour filtrer les œuvres par catégorie
+async function filterWorks(cat) {
+    const url = `${API_URL}/works`;  // Récupère toutes les œuvres depuis l'API
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        const works = await response.json();  // Récupère les œuvres
+        const filteredWorks = works.filter(work => work.categoryId === cat);  // Filtre les œuvres par catégorie
+        displayWorks(filteredWorks);  // Affiche les œuvres filtrées
+    } catch (error) {
+        console.error(error.message);
+    }
 }
 
-getWorks();
-getCategories();
+// Fonction pour afficher les œuvres dans la galerie
+function displayWorks(works) {
+    clearGallery();  // Nettoie la galerie avant d'afficher les œuvres filtrées
+    works.forEach(work => setFigure(work));  // Ajoute chaque œuvre filtrée à la galerie
+}
+
+// Fonction pour nettoyer la galerie avant chaque nouvel affichage
+function clearGallery() {
+    document.querySelector(".gallery").innerHTML = "";  // Supprime toutes les œuvres actuellement affichées
+}
+
+// Fonction pour créer les éléments d'une œuvre
+function setFigure(data) {
+    const figure = document.createElement("figure");
+    figure.innerHTML = `<img src="${data.imageUrl}" alt="${data.title}">
+                        <figcaption>${data.title}</figcaption>`;
+    document.querySelector(".gallery").append(figure);
+}
