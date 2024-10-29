@@ -126,6 +126,23 @@ input[type="submit"]{
 	border-radius: 60px ;
 }
 
+.message {
+    margin-top: 15px;
+    padding: 10px;
+    font-size: 14px;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.message.error {
+    background-color: #f44336;
+}
+
+.message.success {
+    background-color: #1D6154;
+}
+
 .lost-password {
     display: flex;
     justify-content: center;
