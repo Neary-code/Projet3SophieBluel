@@ -1,7 +1,6 @@
 // URL de l'API
 const loginApi = "http://localhost:5678/api/users/login";
 
-
 document.querySelector("#log-in form").addEventListener("submit", function (event) {
     event.preventDefault(); // Empêche le rechargement de la page
 
@@ -38,7 +37,7 @@ document.querySelector("#log-in form").addEventListener("submit", function (even
         return response.json();
     })
     .then((data) => {
-
+        // console.log(data) verif contenu de l'API
               // Vérifie si la connexion est réussie et si un jeton est renvoyé
             if (data.token) {
                 // Stocke le jeton dans le localStorage
@@ -47,12 +46,12 @@ document.querySelector("#log-in form").addEventListener("submit", function (even
                 // Affiche un message de succès
                 showMessage("Connexion réussie !", "success");
     
-                // Redirige vers la page d'accueil après un délai pour voir le message
+                // Redirige vers la page d'accueil avec un délai
                 setTimeout(() => {
-                    window.location.href = "homepage.html";
+                    window.location.href = "../index.html";
                 }, 1000);
             } else {
-                showMessage("Erreur de connexion, token non fourni.", "error");
+                showMessage("Erreur de connexion !", "error");
             }
         })
         .catch((error) => {

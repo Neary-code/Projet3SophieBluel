@@ -75,7 +75,6 @@ h1 > span {
 	font-family: 'Work Sans';
 	font-size:10px;
 	letter-spacing: 0.1em;
-;
 }
 
 h2{
@@ -98,6 +97,44 @@ nav li {
 li:hover {
 	color: #B1663C;
 }
+
+.edition-bar {
+	width: 100%;
+	height: 30px;
+	margin: 0;
+	background-color: black;
+}
+
+.fa-regular {
+	color: white;
+}
+
+.js-modal {
+	font-size: 10px;
+	color: white;
+}
+
+.edition-bar {
+	display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+	gap: 5px;
+}
+
+#modify {
+	color: black;
+}
+
+.modify-projetcs {
+	display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: baseline;
+	gap: 20px;
+
+}
+
 #introduction {
 	display: flex;
 	align-items: center;

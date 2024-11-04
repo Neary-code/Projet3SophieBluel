@@ -25,6 +25,7 @@ function setFigure(data) {
     figure.innerHTML = `<img src=${data.imageUrl} alt=${data.title}>
 				<figcaption>${data.title}</figcaption>`
 document.querySelector(".gallery").append(figure);
+document.querySelector(".gallery-modal").append(figure);
 }
 
 //Recuperation des categories depuis l'API
