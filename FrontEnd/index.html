@@ -14,10 +14,6 @@
 </head>
 
 <body>
-	<div class="edition-bar">
-		<i class="fa-regular fa-pen-to-square"></i>
-		<a href="#modal1" class="js-modal">Mode édition</a>
-	</div>
 	<aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-labelledby="titlemodal" style="display: none;">
 		<div class="modal-wrapper js-modal-stop">
 			<div class="gallery-modal">
@@ -34,9 +30,9 @@
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
 		<ul>
-			<li>projets</li>
-			<li>contact</li>
-			<li>login</li>
+			<li><a href="#portfolio"></a>projets</li>
+			<li><a href="#contact"></a>contact</li>
+			<li><a class="log-button" href="../login/login.html"></a>login</li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -54,11 +50,7 @@
 		</article>
 	</section>
 	<section id="portfolio">
-			<div class="modify-projetcs">
 				<h2>Mes Projets</h2>
-				<i class="fa-regular fa-pen-to-square" id="modify"></i>
-				<p>modifier</p>
-			</div>
 			<nav class="filters">
 		<div class="all">Tous</div>
 	</nav>

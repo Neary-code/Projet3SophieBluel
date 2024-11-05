@@ -99,10 +99,21 @@ li:hover {
 }
 
 .edition-bar {
-	width: 100%;
+	position: absolute;
+	width: 100vw;
 	height: 30px;
-	margin: 0;
 	background-color: black;
+	top: 0;
+	left: 0;
+}
+
+.modal-wrapper {
+	overflow: auto;
+	width: 600px;
+	max-width: calc(100vh - 20px);
+	max-height: calc(100vh - 20px);
+	padding: 20px;
+	background-color: white;
 }
 
 .fa-regular {
