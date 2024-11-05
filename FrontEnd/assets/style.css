@@ -126,15 +126,13 @@ li:hover {
     Height: 688px;
     Top: 660px;
     Left: 405px;
-    Radius: 10px;
+    border-radius: 10px;
 	background: white;
 }
 
-.close-button-container {
-	display: flex;
-    flex-direction: row-reverse;
-	padding-top: 20px;
-	padding-right: 20px;
+.js-modal-close {
+    border: white;
+    background: white;
 }
 
 #titlemodal {
