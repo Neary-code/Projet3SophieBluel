@@ -83,6 +83,7 @@ h2{
 	font-size: 30px;
 	color: #1D6154
 }
+
 nav ul {
 	display: flex;
 	align-items: center;
@@ -116,7 +117,7 @@ li:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.3);
 }
 
 .modal-wrapper {
@@ -127,6 +128,23 @@ li:hover {
     Left: 405px;
     Radius: 10px;
 	background: white;
+}
+
+.close-button-container {
+	display: flex;
+    flex-direction: row-reverse;
+	padding-top: 20px;
+	padding-right: 20px;
+}
+
+#titlemodal {
+	font-family: Work Sans;
+	font-size: 26px;
+	font-weight: 400;
+	line-height: 30.5px;
+	text-align: center;
+	color: black;
+	
 }
 
 .fa-regular {

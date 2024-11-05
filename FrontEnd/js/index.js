@@ -55,11 +55,10 @@ function setFilters(data) {
     filters.innerHTML = `${data.name}`;
     filters.addEventListener("click", () => filterWorks(data.id));
 document.querySelector(".filters").append(filters);
-}
 
 function filterWorks(cat) {
     console.log(cat)
-}
+}}
 
 //Ajouter un événement de clic et filtre au bouton Tous//
 const buttonAll = document.querySelector(".all");
@@ -101,6 +100,7 @@ function setFigure(data) {
 
     }
 
+    //Fonction pour la connexion en mode admin//
     function displayAdminMode() {
         if (localStorage.getItem("token")) {
             const editBanner = document.createElement("div");
@@ -112,6 +112,8 @@ function setFigure(data) {
     }
     displayAdminMode();
 
+    
+    
     // function displayAdminMode() {
     //     if (localStorage.getItem("token")) {
     //         const modifyProjects = document.createElement("div");
@@ -122,11 +124,6 @@ function setFigure(data) {
     //     }
     // }
     // displayAdminMode();
-    
-    // <div class="modify-projetcs">
-    // <i class="fa-regular fa-pen-to-square" id="modify"></i>
-    // <p>modifier</p>
-    // </div>
 
     //Modale//
     let modal = null
@@ -137,8 +134,8 @@ function setFigure(data) {
         target.removeAttribute("aria-hidden")
         target.setAttribute("aria-modal", "true")
         modal = target
-        modal.addEvenListener("click", closeModal)
-        modal.querySelector(".js-modal-close").addEvenListener("click", closeModal)
+        modal.addEventListener("click", closeModal)
+        modal.querySelector(".js-modal-close").addEventListener("click", closeModal)
     }
     const closeModal = function (e) {
         if (modal === null) return
@@ -146,8 +143,8 @@ function setFigure(data) {
         modal.style.display = "none"
         modal.setAttribute("aria-hidden", "true")
         modal.removeAttribute("aria-modal")
-        modal.removeEvenListener("click", closeModal)
-        modal.querySelector(".js-modal-close").removeEvenListener("click", closeModal)
+        modal.removeEventListener("click", closeModal)
+        modal.querySelector(".js-modal-close").removeEventListener("click", closeModal)
         modal = null
     }
     document.querySelectorAll(".js-modal").forEach((a) => {
