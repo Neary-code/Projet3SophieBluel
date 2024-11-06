@@ -2,7 +2,6 @@
 v2.0 | 20110126
 License: none (public domain)
 */
-
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -23,29 +22,35 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+
 body {
 	line-height: 1;
 }
 ol, ul {
 	list-style: none;
 }
+
 blockquote, q {
 	quotes: none;
 }
+
 blockquote:before, blockquote:after,
 q:before, q:after {
 	content: '';
 	content: none;
 }
+
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
 /** end reset css**/
 body {
 	max-width: 1140px;
@@ -53,11 +58,13 @@ body {
 	font-family: 'Work Sans' ;
 	font-size: 14px;
 }
+
 header {
 	display: flex;
 	justify-content: space-between;
 	margin: 50px 0
 }
+
 section {
 	margin: 50px 0
 }
@@ -99,6 +106,80 @@ li:hover {
 	color: #B1663C;
 }
 
+#introduction {
+	display: flex;
+	align-items: center;
+}
+
+#introduction figure {
+	flex: 1
+}
+
+#introduction img {
+	display: block;
+	margin: auto;
+	width: 80%;
+}
+
+#introduction article {
+	flex: 1
+}
+
+#introduction h2 {
+	margin-bottom: 1em;
+}
+
+#introduction p {
+	margin-bottom: 0.5em;
+}
+
+#portfolio h2 {
+	text-align: center;
+	margin-bottom: 1em;
+}
+
+/*Filtres*/
+.filters {
+	width: 55%;
+    display: flex;
+    flex-direction: row;
+    margin: 40px;
+    padding-left: 250px;
+    justify-content: space-evenly;
+}
+
+.filters>*{
+    padding: 12px 20px;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #1D6154;
+	font-family: 'Syne';
+	cursor: pointer;
+}
+
+.filters>*:hover{
+	background-color: #1D6154;
+	color: white;
+	cursor: pointer;
+}
+
+/*Galerie photo*/
+.gallery {
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-column-gap: 10px;
+	grid-row-gap: 10px;
+}
+
+.gallery img {
+	width: 100%;
+}
+
+/* Mode edition */
 .edition-bar {
 	position: absolute;
 	width: 100vw;
@@ -108,6 +189,14 @@ li:hover {
 	left: 0;
 }
 
+.edition-bar {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+	gap: 5px;
+}
+
+/* Modale */
 .modal {
     position: fixed;
     display: flex;
@@ -121,10 +210,12 @@ li:hover {
 }
 
 .modal-wrapper {
-    Width: 630px;
-	height: 688px;
-    border-radius: 10px;
-	background: white;
+	width: 630px;
+	height: 700px;
+	top: 660px;
+	left: 405px;
+	border-radius: 10px 0px 0px 0px;
+	background: rgba(255, 255, 255, 1);
 }
 
 .js-modal-close {
@@ -172,41 +263,37 @@ li:hover {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 	grid-column-gap: 10px;
-	grid-row-gap: 10px;
-	padding-top: 10px;
+	grid-row-gap: 20px;
+	padding-top:40px;
 	padding-right: 40px;
 	padding-bottom: 10px;
 	padding-left: 50px;
 }
 
+.modal-gallery figure {
+    position: relative; /* Permet de positionner l'icône par rapport au figure */
+    display: inline-block; /* Garde le contenu du figure en bloc inline */
+}
+
 .modal-gallery img {
-	width: 60px;
-	height: 70px;
+	display: block; /* Évite les petits espaces sous l'image */
+    width: 100%; /* Ajuste la largeur selon vos besoins */
 }
 
-.image-container {
-    position: relative;
-    display: inline-block;
-}
-
-.image-container img {
-    display: block;
-}
-
-.image-container .overlay-icon {
-	position: absolute;
-    top: 6px; /* Ajustez cette valeur pour placer l'icône en fonction de vos besoins */
-    right: 6px; /* Ajustez cette valeur pour placer l'icône en fonction de vos besoins */
-    font-size: 16px; /* Ajustez cette valeur pour la taille de l'icône */
-    cursor: pointer;
-    background-color: black;
-    color: white;
-    padding: 4px;
-    border-radius: 10%;
+.overlay-icon {
+    position: absolute; /* Positionne l'icône par rapport au figure */
+    top: 5px; /* Ajustez la position verticale de l'icône */
+    right: 5px; /* Ajustez la position horizontale de l'icône */
+    color: white; /* Couleur de l'icône */
+    font-size: 12px; /* Taille de l'icône */
+    background: black; /* Fond semi-transparent pour une meilleure visibilité */
+    padding: 5px; /* Espacement autour de l'icône */
+    border-radius: 2px; /* Bordure arrondie */
+    cursor: pointer; /* Indicateur de clic */
 }
 
 .modal-wrapper hr {
-    margin-top: 30px;
+    margin-top: 50px;
 	width: 420px;
 }
 
@@ -223,102 +310,12 @@ hr {
 	color: white;
 }
 
-.edition-bar {
-	display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-	gap: 5px;
-}
-
-#modify {
-	color: black;
-}
-
-.modify-projetcs {
-	display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: baseline;
-	gap: 20px;
-
-}
-
-#introduction {
-	display: flex;
-	align-items: center;
-}
-
-#introduction figure {
-	flex: 1
-}
-
-#introduction img {
-	display: block;
-	margin: auto;
-	width: 80%;
-}
-
-#introduction article {
-	flex: 1
-}
-
-#introduction h2 {
-	margin-bottom: 1em;
-}
-
-#introduction p {
-	margin-bottom: 0.5em;
-}
-
-#portfolio h2 {
-	text-align: center;
-	margin-bottom: 1em;
-}
-
-.filters {
-	width: 55%;
-    display: flex;
-    flex-direction: row;
-    margin: 40px;
-    padding-left: 250px;
-    justify-content: space-evenly;
-}
-
-.filters>*{
-    padding: 12px 20px;
-    border-radius: 25px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid #1D6154;
-	font-family: 'Syne';
-	cursor: pointer;
-}
-
-.filters>*:hover{
-	background-color: #1D6154;
-	color: white;
-	cursor: pointer;
-}
-
-.gallery {
-	width: 100%;
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	grid-column-gap: 10px;
-	grid-row-gap: 10px;
-}
-
-.gallery img {
-	width: 100%;
-}
-
+/*Formulaire de contact*/
 #contact {
 	width: 50%;
 margin: auto;
 }
+
 #contact > * {
 	text-align: center;
 
@@ -326,6 +323,7 @@ margin: auto;
 #contact h2{
 	margin-bottom: 20px;
 }
+
 #contact form {
 	text-align: left;
 	margin-top:30px;
@@ -339,9 +337,11 @@ margin: auto;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
+
 #contact label {
 	margin: 2em 0 1em 0;
 }
+
 #contact textarea {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
