@@ -121,11 +121,8 @@ li:hover {
 }
 
 .modal-wrapper {
-    overflow: auto;
     Width: 630px;
-    Height: 688px;
-    Top: 660px;
-    Left: 405px;
+	height: 688px;
     border-radius: 10px;
 	background: white;
 }
@@ -133,16 +130,88 @@ li:hover {
 .js-modal-close {
     border: white;
     background: white;
+	font-size: 18px;
+}
+
+.close-button-container {
+	display: flex;
+    flex-direction: row-reverse;
+    padding-right: 10px;
+    padding-top: 10px;
 }
 
 #titlemodal {
 	font-family: Work Sans;
-	font-size: 26px;
+	font-size: 20px;
 	font-weight: 400;
 	line-height: 30.5px;
 	text-align: center;
 	color: black;
 	
+}
+
+.modal-button-container {
+    display: flex;
+    justify-content: center;
+	padding-top: 10px;
+}
+
+.add-photo-button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    border: 1px solid #1D6154;
+    border-radius: 25px;
+    font-family: 'Syne';
+    color: white;
+    cursor: pointer;
+    background-color: #1D6154;
+    width: 250px;
+}
+
+.modal-gallery {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	grid-column-gap: 10px;
+	grid-row-gap: 10px;
+	padding-top: 10px;
+	padding-right: 40px;
+	padding-bottom: 10px;
+	padding-left: 50px;
+}
+
+.modal-gallery img {
+	width: 60px;
+	height: 70px;
+}
+
+.image-container {
+    position: relative;
+    display: inline-block;
+}
+
+.image-container img {
+    display: block;
+}
+
+.image-container .overlay-icon {
+	position: absolute;
+    top: 6px; /* Ajustez cette valeur pour placer l'icône en fonction de vos besoins */
+    right: 6px; /* Ajustez cette valeur pour placer l'icône en fonction de vos besoins */
+    font-size: 16px; /* Ajustez cette valeur pour la taille de l'icône */
+    cursor: pointer;
+    background-color: black;
+    color: white;
+    padding: 4px;
+    border-radius: 10%;
+}
+
+.modal-wrapper hr {
+    margin-top: 30px;
+	width: 420px;
+}
+
+hr {
+	border: 1px solid rgba(179, 179, 179, 1)
 }
 
 .fa-regular {
@@ -179,9 +248,11 @@ li:hover {
 	display: flex;
 	align-items: center;
 }
+
 #introduction figure {
 	flex: 1
 }
+
 #introduction img {
 	display: block;
 	margin: auto;
@@ -191,6 +262,7 @@ li:hover {
 #introduction article {
 	flex: 1
 }
+
 #introduction h2 {
 	margin-bottom: 1em;
 }
@@ -198,6 +270,7 @@ li:hover {
 #introduction p {
 	margin-bottom: 0.5em;
 }
+
 #portfolio h2 {
 	text-align: center;
 	margin-bottom: 1em;
@@ -221,25 +294,27 @@ li:hover {
     align-items: center;
     border: 1px solid #1D6154;
 	font-family: 'Syne';
+	cursor: pointer;
 }
 
 .filters>*:hover{
 	background-color: #1D6154;
 	color: white;
+	cursor: pointer;
 }
 
 .gallery {
 	width: 100%;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
-	grid-column-gap: 20px;
-	grid-row-gap: 20px;
+	grid-column-gap: 10px;
+	grid-row-gap: 10px;
 }
 
 .gallery img {
 	width: 100%;
-
 }
+
 #contact {
 	width: 50%;
 margin: auto;

@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:5678/api"; // Centraliser l'URL de base//
+const API_URL = "http://localhost:5678/api"; 
 
 //Recuperation du Works depuis l'API//
 async function getWorks() {
@@ -12,6 +12,7 @@ async function getWorks() {
     console.log(json);
     for(let i = 0; i < json.length; i++) {
     setFigure(json[i]);
+    setFigureModal(json[i]);
     }
 }  catch (error) {
     console.error(error.message);
@@ -25,7 +26,14 @@ function setFigure(data) {
     figure.innerHTML = `<img src=${data.imageUrl} alt=${data.title}>
 				<figcaption>${data.title}</figcaption>`
 document.querySelector(".gallery").append(figure);
-document.querySelector(".gallery-modal").append(figure);
+}
+
+//Affichage de la galerie modale//
+function setFigureModal(data) {
+    const figure = document.createElement("figure")
+    figure.innerHTML = `<img src=${data.imageUrl} alt=${data.title}>
+    <i id=${data.id} class="fa-solid fa-trash-can overlay-icon"></i>`
+document.querySelector(".modal-gallery").append(figure);
 }
 
 //Recuperation des categories depuis l'API//
@@ -91,15 +99,6 @@ function clearGallery() {
     document.querySelector(".gallery").innerHTML = "";  //Supprime toutes les œuvres actuellement affichées//
 }
 
-// Fonction pour créer les éléments d'une œuvre//
-function setFigure(data) {
-    const figure = document.createElement("figure");
-    figure.innerHTML = `<img src="${data.imageUrl}" alt="${data.title}">
-                        <figcaption>${data.title}</figcaption>`;
-    document.querySelector(".gallery").append(figure);
-
-    }
-
     //Fonction pour la connexion en mode admin//
     function displayAdminMode() {
         if (localStorage.getItem("token")) {
@@ -150,3 +149,6 @@ function setFigure(data) {
     document.querySelectorAll(".js-modal").forEach((a) => {
         a.addEventListener("click", openModal);
     });
+
+
+    
