@@ -14,10 +14,12 @@
 </head>
 
 <body>
-	<div class="edition-bar">
+	<!-- Barre edition -->
+<div class="edition-bar" style="display: none">
 		<i class="fa-regular fa-pen-to-square"></i>
-		<a href="#modal1" class="js-modal">Mode édition</a>
-	</div>
+		<p class="edition-mode">Mode édition</p>
+	</div> 
+	<!-- Modal -->
 	<aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-labelledby="titlemodal" style="display: none;">
 		<div class="modal-wrapper js-modal-stop">
 			<div class="gallery-modal">
@@ -33,41 +35,8 @@
 				<button class="add-photo-button">Ajouter une photo</button>
 			</div>
 			</div>
-			<div class="add-modal" style="display: none;">
-			<div class="modal-buttons-container">
-				<button class="js-modal-back">
-				<i class="fa-solid fa-arrow-left"></i>
-				</button>
-				<button class="js-modal-close">
-				<i class="fa-solid fa-xmark"></i>
-				</button>
-			</div>
-			
-			<h3>Ajout photo</h3>
-		<div class="form add-photo-form">
-			<form id="picture-form" action="#" method="post">
-			<div class="file-section">
-				<div id="photo-container"></div>
-				<div><i class="fa-regular fa-image picture-loaded"></i></div>
-				<label class="picture-loaded" for="file">+ Ajouter photo</label>
-				<input type="file" id="file" name="file" accept="image/png, image/jpeg" />
-				<p class="picture-loaded">jpg, png : 4mo max</p>
-			</div>
-			<label for="title">Titre</label>
-			<input type="text" name="title" id="title" />
-			<label for="category">Catégorie</label>
-			<select id="category" name="category" size="1">
-				<option value="1">Objets</option>
-				<option value="2">Appartements</option>
-				<option value="3">Hotels & restaurants</option>
-			</select>
-			<hr />
-			<input type="submit" value="Valider" />
-			</form>
-		</div>
-		</div>
-		</div>
 	</aside>
+	<!--  -->
 <header>
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
@@ -92,10 +61,17 @@
 		</article>
 	</section>
 	<section id="portfolio">
-				<h2>Mes Projets</h2>
-			<nav class="filters">
-		<div class="all">Tous</div>
-	</nav>
+				<!-- Modifier click qui lance la modale -->				
+				<div class="modify-projetcs">
+					<h2>Mes Projets</h2>
+					<div class="modify-modal" style="display: none">
+					<i class="fa-regular fa-pen-to-square" id="modify"></i>
+					<a href="#modal1" id="modify" class="js-modal">Modifier</a>
+				</div>
+				</div>
+				<nav class="filters" id="filter-bar">
+					<div class="all">Tous</div>
+				</nav>
 		<div class="gallery">
 		</div>
 	</section>

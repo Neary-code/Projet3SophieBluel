@@ -99,56 +99,73 @@ function clearGallery() {
     document.querySelector(".gallery").innerHTML = "";  //Supprime toutes les œuvres actuellement affichées//
 }
 
-    //Fonction pour la connexion en mode admin//
-    function displayAdminMode() {
-        if (localStorage.getItem("token")) {
-            const editBanner = document.createElement("div");
-            editBanner.className = "edition-bar";
-            editBanner.innerHTML = '<i class="fa-regular fa-pen-to-square"></i>, <p class="js-modal">Mode édition</p>'
-            
-            document.body.prepend(editBanner);
+//Fonction pour afficher le mode admin//
+function displayAdminMode() {
+    // Vérifie la présence du token//
+    const token = localStorage.getItem("token");
+    if (token) {
+        // Supprime la barre de filtres//
+        const filterBar = document.querySelector(".filters");
+        if (filterBar) {
+            filterBar.remove();
+        }
+
+        // Affiche la barre d'édition//
+        const editBanner = document.querySelector(".edition-bar");
+        if (editBanner) {
+            editBanner.style.display = "flex";
+        }
+
+        // Affiche le bouton modifier//
+        const modifyProjects = document.querySelector(".modify-modal");
+        if (modifyProjects) {
+            modifyProjects.style.display = "flex";
+        }
+    } else {
+        // Masquer les éléments admin si déconnecté//
+        const editBanner = document.querySelector(".edition-bar");
+        if (editBanner) {
+            editBanner.style.display = "none";
+        }
+        const modifyProjects = document.querySelector(".modify-modal");
+        if (modifyProjects) {
+            modifyProjects.style.display = "none";
         }
     }
-    displayAdminMode();
+}
 
-    
-    
-    // function displayAdminMode() {
-    //     if (localStorage.getItem("token")) {
-    //         const modifyProjects = document.createElement("div");
-    //         modifyProjects.className = "modifyProjects";
-    //         modifyProjects.innerHTML = '<i class="fa-regular fa-pen-to-square" id="modify"></i><p>modifier</p>'
-            
-    //         document.body.prepend(modifyProjects);
-    //     }
-    // }
-    // displayAdminMode();
+//Fonction de deconnexion
+function logout() {
+    localStorage.removeItem("token");
+    window.location.reload(); // Recharge la page pour mettre à jour l'affichage
+}
 
-    //Modale//
-    let modal = null
-    const openModal = function (e) {
-        e.preventDefault()
-        const target = document.querySelector(e.target.getAttribute("href"))
-        target.style.display = null
-        target.removeAttribute("aria-hidden")
-        target.setAttribute("aria-modal", "true")
-        modal = target
-        modal.addEventListener("click", closeModal)
-        modal.querySelector(".js-modal-close").addEventListener("click", closeModal)
-    }
-    const closeModal = function (e) {
-        if (modal === null) return
-        e.preventDefault()
-        modal.style.display = "none"
-        modal.setAttribute("aria-hidden", "true")
-        modal.removeAttribute("aria-modal")
-        modal.removeEventListener("click", closeModal)
-        modal.querySelector(".js-modal-close").removeEventListener("click", closeModal)
-        modal = null
-    }
-    document.querySelectorAll(".js-modal").forEach((a) => {
-        a.addEventListener("click", openModal);
-    });
+// Appel de la fonction après le chargement de la page//
+displayAdminMode();
 
 
-    
+ //Modale//
+let modal = null
+const openModal = function (e) {
+    e.preventDefault()
+    const target = document.querySelector(e.target.getAttribute("href"))
+    target.style.display = "block";
+    target.removeAttribute("aria-hidden")
+    target.setAttribute("aria-modal", "true")
+    modal = target
+    modal.addEventListener("click", closeModal)
+    modal.querySelector(".js-modal-close").addEventListener("click", closeModal)
+}
+const closeModal = function (e) {
+    if (modal === null) return
+    e.preventDefault()
+    modal.style.display = "none"
+    modal.setAttribute("aria-hidden", "true")
+    modal.removeAttribute("aria-modal")
+    modal.removeEventListener("click", closeModal)
+    modal.querySelector(".js-modal-close").removeEventListener("click", closeModal)
+    modal = null
+}
+document.querySelectorAll(".js-modal").forEach((a) => {
+    a.addEventListener("click", openModal);
+});
