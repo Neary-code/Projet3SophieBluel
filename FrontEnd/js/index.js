@@ -188,19 +188,30 @@ window.addEventListener("keydown", function (e) {
 
 //Modale version ajout photo//
 
- // Evénement pour le bouton "Ajouter une photo"
+// Evénement pour le bouton "Ajouter une photo"
 const modal2 = function () {
     document.querySelector(".modal-wrapper")
     .innerHTML = 
-            `<i class="fa-solid fa-arrow-left"></i>
+            `<div class="modal-wrapper2 js-modal-stop">
+            <i class="fa-solid fa-arrow-left" id="arrow"></i>
             <i class="fa-solid fa-x"></i>
-			<h3 id="titlemodal">Ajout photo</h3>
+            </div>
+			<h3 id="titlemodal2">Ajout photo</h3>
+            <section id="modal-form">
+			<form action="#" method="post">
+			<label for="title">Titre</label>
+			<input type="title" name="title" id="title">
+			<label for="categorie">Catégorie</label>
+			<input type="categorie" name="categorie" id="categorie">
+			</form>
+			</section>
 			<hr />
 			<div class="modal-button-container">
 			<button class="validation-button">Valider</button>
-			</div>`;
+			</div>`
 };
 
+// Evénement pour ouvrir la modale2
 const addPhotoButton = document.querySelector(".add-photo-button");
 addPhotoButton.addEventListener("click", modal2);
 

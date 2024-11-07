@@ -354,13 +354,66 @@ hr {
 	background: rgba(255, 255, 255, 1);
 }
 
-.arrow-left {
-
+.modal-wrapper2 {
+	display: flex;
+    padding: 0;
+    justify-content: space-between;
+    padding-bottom: 20px;
 }
 
-.x 
-{
+#arrow {
+	font-size: 20px;
+}
 
+#x {
+	display: flex;
+}
+
+#titlemodal2 {
+	font-family: Work Sans;
+	font-size: 20px;
+	font-weight: 400;
+	line-height: 30.5px;
+	text-align: center;
+	color: black;
+}
+
+#modal-form {
+	width: 50%;
+    margin: auto;
+    padding-top: 10px ;
+}
+
+#modal-form > * {
+	text-align: center;
+}
+
+#modal-form {
+text-align: left;
+margin-top: 30px;
+display: flex;
+flex-direction: column;
+}
+
+#modal-form label {
+	margin: 2em 0 1em 0;
+}
+
+#modal-form input {
+	height: 50px;
+    font-size: 1.2em;
+    border: none;
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+#titre {
+    width: 80%;
+    padding-left: 50px;
+}
+
+#categorie {
+    width: 80%;
+    padding-left: 50px;
 }
 
 .validation-button {
