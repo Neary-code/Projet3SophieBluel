@@ -197,6 +197,7 @@ addPhotoButton.addEventListener("click", function (e) {
      openModal("modal2");  // Ouvre la deuxième modale
 });
 
+
  // Bouton retour dans la deuxième modale
 document.querySelector("#modal2 #arrow").addEventListener("click", function (e) {
     e.preventDefault();
