@@ -147,24 +147,25 @@ displayAdminMode();
  //Modale//
 let modal = null;
 
-const openModal = function (e) {
-    e.preventDefault()
-    const target = document.querySelector(e.target.getAttribute("href"))
+const openModal = function (targetId) {
+    const target = document.getElementById(targetId);
+    if (!target) return;
     target.style.display = "flex";
-    target.removeAttribute("aria-hidden")
-    target.setAttribute("aria-modal", "true")
-    modal = target
-    modal.addEventListener("click", closeModal)
-    modal.querySelector(".js-modal-close").addEventListener("click", closeModal)
-    modal.querySelector(".js-modal-stop").addEventListener("click", stopPropagation)
-}
+    target.removeAttribute("aria-hidden");
+    target.setAttribute("aria-modal", "true");
+    modal = target;
 
-const closeModal = function (e) {
+    modal.addEventListener("click", closeModal);
+    modal.querySelector(".js-modal-close").addEventListener("click", closeModal);
+    modal.querySelector(".js-modal-stop").addEventListener("click", stopPropagation);
+};
+
+const closeModal = function () {
     if (modal === null) return;
-    e.preventDefault();
     modal.style.display = "none";
     modal.setAttribute("aria-hidden", "true");
     modal.removeAttribute("aria-modal");
+
     modal.removeEventListener("click", closeModal);
     modal.querySelector(".js-modal-close").removeEventListener("click", closeModal);
     modal.querySelector(".js-modal-stop").removeEventListener("click", stopPropagation);
@@ -175,46 +176,30 @@ const stopPropagation = function (e) {
     e.stopPropagation();
 };
 
- // Evénement pour ouvrir la modale principale
-document.querySelectorAll(".js-modal").forEach((a) => {
-    a.addEventListener("click", openModal);
+ // Ouverture de la première modale (Galerie photo)
+document.querySelector(".js-modal").addEventListener("click", function (e) {
+    e.preventDefault();
+    openModal("modal1");
 });
 
+ // Fermeture avec la touche Escape
 window.addEventListener("keydown", function (e) {
     if (e.key === "Escape") {
-        closeModal(e);
+        closeModal();
     }
 });
 
-//Modale version ajout photo//
-
-// Evénement pour le bouton "Ajouter une photo"
-const modal2 = function () {
-    document.querySelector(".modal-wrapper")
-    .innerHTML = 
-            `<div class="modal-wrapper2 js-modal-stop">
-            <i class="fa-solid fa-arrow-left" id="arrow"></i>
-            <i class="fa-solid fa-x"></i>
-            </div>
-			<h3 id="titlemodal2">Ajout photo</h3>
-            <section id="modal-form">
-			<form action="#" method="post">
-			<label for="title">Titre</label>
-			<input type="title" name="title" id="title">
-			<label for="categorie">Catégorie</label>
-			<input type="categorie" name="categorie" id="categorie">
-			</form>
-			</section>
-			<hr />
-			<div class="modal-button-container">
-			<button class="validation-button">Valider</button>
-			</div>`
-};
-
-// Evénement pour ouvrir la modale2
+ // Gestion du passage à la deuxième modale (Ajouter une photo)
 const addPhotoButton = document.querySelector(".add-photo-button");
-addPhotoButton.addEventListener("click", modal2);
+addPhotoButton.addEventListener("click", function (e) {
+    e.preventDefault();
+     closeModal();  // Ferme la première modale
+     openModal("modal2");  // Ouvre la deuxième modale
+});
 
-
-
-
+ // Bouton retour dans la deuxième modale
+document.querySelector("#modal2 #arrow").addEventListener("click", function (e) {
+    e.preventDefault();
+     closeModal();  // Ferme la deuxième modale
+     openModal("modal1");  // Rouvre la première modale
+});
