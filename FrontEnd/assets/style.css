@@ -239,9 +239,9 @@ li:hover {
 
 .modal-wrapper {
 	width: 630px;
-	height: 700px;
-	top: 660px;
-	left: 405px;
+	max-width: calc(100vn - 20px);
+	max-height: calc(100vh - 20px);
+	padding: 20px;
 	border-radius: 10px;
 	background: rgba(255, 255, 255, 1);
 }
@@ -337,6 +337,8 @@ hr {
 	font-size: 10px;
 	color: white;
 }
+
+/*Modal2*/
 
 /*Formulaire de contact*/
 #contact {
