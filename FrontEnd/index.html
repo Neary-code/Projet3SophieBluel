@@ -19,7 +19,7 @@
 		<i class="fa-regular fa-pen-to-square"></i>
 		<p class="edition-mode">Mode édition</p>
 	</div> 
-	<!-- Modal -->
+	<!-- Modal principale -->
 	<aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-labelledby="titlemodal" style="display: none;">
 		<div class="modal-wrapper js-modal-stop">
 			<div class="gallery-modal">
@@ -35,12 +35,15 @@
 				<button class="add-photo-button">Ajouter une photo</button>
 			</div>
 			
-			<!-- Version modale pour "Ajouter une photo" -->
+			<!-- Modale pour "Ajouter une photo" -->
 			<div class="modal2" id="add-photo-modal" style="display: none;">
-				<div class="modal-content js-modal-stop">
-					<button class="js-modal-close">
-						<i class="fa-solid fa-xmark"></i>
-						</button>
+				<div class="modal-wrapper2 js-modal-stop">
+					`<i class="fa-solid fa-arrow-left"></i>
+					<i class="fa-solid fa-x"></i>
+					<hr />
+					<div class="modal-button-container">
+					<button class="validation-button">Valider</button>
+					</div>
 				</div>
 			</div>
 			

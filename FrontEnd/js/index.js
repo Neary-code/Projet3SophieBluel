@@ -190,7 +190,15 @@ window.addEventListener("keydown", function (e) {
 
  // Evénement pour le bouton "Ajouter une photo"
 const modal2 = function () {
-    document.querySelector(".modal-wrapper").innerHTML = "";
+    document.querySelector(".modal-wrapper")
+    .innerHTML = 
+            `<i class="fa-solid fa-arrow-left"></i>
+            <i class="fa-solid fa-x"></i>
+			<h3 id="titlemodal">Ajout photo</h3>
+			<hr />
+			<div class="modal-button-container">
+			<button class="validation-button">Valider</button>
+			</div>`;
 };
 
 const addPhotoButton = document.querySelector(".add-photo-button");
