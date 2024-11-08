@@ -33,7 +33,38 @@ function setFigureModal(data) {
     const figure = document.createElement("figure")
     figure.innerHTML = `<img src=${data.imageUrl} alt=${data.title}>
     <i id=${data.id} class="fa-solid fa-trash-can overlay-icon"></i>`
+
+    // Evénement pour supprimer une œuvre
+    const deleteIcon = figure.querySelector(".overlay-icon");
+    deleteIcon.addEventListener("click", () => deleteWork(data.id, figure));
+
 document.querySelector(".modal-gallery").append(figure);
+}
+
+//Fonction pour supprimer une oeuvre//
+async function deleteWork(workId, figureElement) {
+    const token = localStorage.getItem("token"); // Utilise le token pour authentifier la requête
+    const url = `${API_URL}/works/${workId}`; // L'URL de suppression pour le travail spécifique
+
+    try {
+        const response = await fetch(url, {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${token}`, // Ajoute le token pour autorisation
+                "Content-Type": "application/json"
+            }
+        });
+        
+        if (response.ok) {
+            // Si la suppression est réussie, supprimez l'élément du DOM
+            figureElement.remove();
+            console.log(`Work ${workId} deleted successfully`);
+        } else {
+            throw new Error(`Failed to delete work with status: ${response.status}`);
+        }
+    } catch (error) {
+        console.error("Error deleting work:", error);
+    }
 }
 
 //Recuperation des categories depuis l'API//
