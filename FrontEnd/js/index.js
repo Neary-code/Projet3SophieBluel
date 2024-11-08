@@ -103,6 +103,9 @@ function clearGallery() {
 function displayAdminMode() {
     // Vérifie la présence du token//
     const token = localStorage.getItem("token");
+    // Afficher le mode admin et gérer le bouton login/logout
+    const logButton = document.querySelector(".log-button");
+
     if (token) {
         // Supprime la barre de filtres//
         const filterBar = document.querySelector(".filters");
@@ -121,6 +124,13 @@ function displayAdminMode() {
         if (modifyProjects) {
             modifyProjects.style.display = "flex";
         }
+
+        // Change le bouton login en logout et ajoute un événement de déconnexion
+        if (logButton) {
+            logButton.textContent = "logout"; // Retire le lien de login
+            logButton.addEventListener("click", logout); // Evénement de déconnexion
+        }
+
     } else {
         // Masquer les éléments admin si déconnecté//
         const editBanner = document.querySelector(".edition-bar");
@@ -130,6 +140,13 @@ function displayAdminMode() {
         const modifyProjects = document.querySelector(".modify-modal");
         if (modifyProjects) {
             modifyProjects.style.display = "none";
+        }
+
+        // Remet le bouton à "login" si l'utilisateur est déconnecté
+        if (logButton) {
+            logButton.textContent = "login";
+            logButton.setAttribute("href", "../login/login.html");
+            logButton.removeEventListener("click", logout); // Evenement de déconnexion
         }
     }
 }

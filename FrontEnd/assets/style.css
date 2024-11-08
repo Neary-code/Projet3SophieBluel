@@ -108,6 +108,17 @@ li:hover {
 	cursor: pointer;
 }
 
+.log-button {
+	padding: 0 10px;
+	cursor: pointer;
+    color: black;
+}
+
+.log-button :hover {
+	color: #B1663C;
+	cursor: pointer;
+}
+
 .click {
 	cursor: pointer;
 }
