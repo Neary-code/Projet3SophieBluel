@@ -100,10 +100,16 @@ nav ul {
 nav li {
 	padding: 0 10px;
 	font-size: 1.2em;
+	cursor: pointer;
 }
 
 li:hover {
 	color: #B1663C;
+	cursor: pointer;
+}
+
+.click {
+	cursor: pointer;
 }
 
 #introduction {
@@ -177,6 +183,7 @@ li:hover {
 
 .gallery img {
 	width: 100%;
+	cursor: pointer;
 }
 
 /* Mode edition */
@@ -362,10 +369,12 @@ hr {
 
 #arrow {
 	font-size: 20px;
+	cursor: pointer;
 }
 
 #x {
 	font-size: 20px;
+	cursor: pointer;
 }
 
 #titlemodal2 {
@@ -410,6 +419,7 @@ hr {
 	line-height: 16.42px;
 	text-align: center;
 	color: rgba(48, 102, 133, 1);
+	cursor: pointer;
 }
 
 #p-modal-2 {
@@ -537,6 +547,7 @@ input[type="submit"]{
 	width: 180px;
 	text-align: center;
 	border-radius: 60px ;
+	cursor: pointer;
 }
 
 footer nav ul {
