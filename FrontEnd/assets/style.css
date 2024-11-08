@@ -372,6 +372,11 @@ hr {
 	cursor: pointer;
 }
 
+.js-back-modal1 {
+	border: white;
+    background: white;
+}
+
 #x {
 	font-size: 20px;
 	cursor: pointer;

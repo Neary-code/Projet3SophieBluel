@@ -156,8 +156,19 @@ const openModal = function (targetId) {
     modal = target;
 
     modal.addEventListener("click", closeModal);
+
+     // Ajout d'un stopPropagation pour le contenu de la modale
+    const stopElements = modal.querySelectorAll(".js-modal-stop");
+    stopElements.forEach((element) => {
+        element.addEventListener("click", stopPropagation);
+    });
+
+     // Ajout des événements pour la fermeture (croix) et le retour (flèche)
     modal.querySelector(".js-modal-close").addEventListener("click", closeModal);
-    modal.querySelector(".js-modal-stop").addEventListener("click", stopPropagation);
+    const backButton = modal.querySelector(".js-back-modal1");
+    if (backButton) {
+        backButton.addEventListener("click", returnToModal1);
+    }
 };
 
 const closeModal = function () {
@@ -167,9 +178,25 @@ const closeModal = function () {
     modal.removeAttribute("aria-modal");
 
     modal.removeEventListener("click", closeModal);
+
+    const stopElements = modal.querySelectorAll(".js-modal-stop");
+    stopElements.forEach((element) => {
+        element.removeEventListener("click", stopPropagation);
+    });
+
     modal.querySelector(".js-modal-close").removeEventListener("click", closeModal);
-    modal.querySelector(".js-modal-stop").removeEventListener("click", stopPropagation);
+    const backButton = modal.querySelector(".js-back-modal1");
+    if (backButton) {
+        backButton.removeEventListener("click", returnToModal1);
+    }
+
     modal = null;
+};
+
+const returnToModal1 = function (e) {
+    e.preventDefault();
+     closeModal();  // Ferme la modale actuelle (modal2)
+     openModal("modal1");  // Ouvre la première modale
 };
 
 const stopPropagation = function (e) {
@@ -189,18 +216,10 @@ window.addEventListener("keydown", function (e) {
     }
 });
 
- // Gestion du passage à la deuxième modale (Ajouter une photo)
+ // Gestion du passage à la modale2 (Ajouter une photo)
 const addPhotoButton = document.querySelector(".add-photo-button");
 addPhotoButton.addEventListener("click", function (e) {
     e.preventDefault();
      closeModal();  // Ferme la première modale
      openModal("modal2");  // Ouvre la deuxième modale
-});
-
-
- // Bouton retour dans la deuxième modale
-document.querySelector("#modal2 #arrow").addEventListener("click", function (e) {
-    e.preventDefault();
-     closeModal();  // Ferme la deuxième modale
-     openModal("modal1");  // Rouvre la première modale
 });
