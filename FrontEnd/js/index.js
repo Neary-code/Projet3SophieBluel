@@ -43,20 +43,20 @@ document.querySelector(".modal-gallery").append(figure);
 
 //Fonction pour supprimer une oeuvre//
 async function deleteWork(workId, figureElement) {
-    const token = localStorage.getItem("token"); // Utilise le token pour authentifier la requête
-    const url = `${API_URL}/works/${workId}`; // L'URL de suppression pour le travail spécifique
+    const token = localStorage.getItem("token"); 
+    const url = `http://localhost:5678/api/works/${workId}`; // URL de l'API pour suppression
 
     try {
         const response = await fetch(url, {
             method: "DELETE",
             headers: {
-                "Authorization": `Bearer ${token}`, // Ajoute le token pour autorisation
+                "Authorization": `Bearer ${token}`, // Ajout du token pour authentification
                 "Content-Type": "application/json"
             }
         });
         
         if (response.ok) {
-            // Si la suppression est réussie, supprimez l'élément du DOM
+            // Si la suppression est réussie, retirer l'élément du DOM
             figureElement.remove();
             console.log(`Work ${workId} deleted successfully`);
         } else {
@@ -66,6 +66,7 @@ async function deleteWork(workId, figureElement) {
         console.error("Error deleting work:", error);
     }
 }
+
 
 //Recuperation des categories depuis l'API//
 async function getCategories() {
