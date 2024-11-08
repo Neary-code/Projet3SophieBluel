@@ -145,7 +145,7 @@ function displayAdminMode() {
         // Remet le bouton à "login" si l'utilisateur est déconnecté
         if (logButton) {
             logButton.textContent = "login";
-            logButton.setAttribute("href", "../login/login.html");
+            logButton.setAttribute("href", "./login/login.html");
             logButton.removeEventListener("click", logout); // Evenement de déconnexion
         }
     }

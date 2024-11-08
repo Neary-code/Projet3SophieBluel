@@ -69,6 +69,15 @@ section {
 	margin: 50px 0
 }
 
+a {
+	text-decoration: none;	
+}
+
+a:hover {
+	color: #B1663C;
+	cursor: pointer;
+}
+
 h1{
 	display: flex;
 	flex-direction: column;
@@ -112,11 +121,6 @@ li:hover {
 	padding: 0 10px;
 	cursor: pointer;
     color: black;
-}
-
-.log-button :hover {
-	color: #B1663C;
-	cursor: pointer;
 }
 
 .click {
