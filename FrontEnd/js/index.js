@@ -23,6 +23,7 @@ getWorks();
 //Affichage de la galerie//
 function setFigure(data) {
     const figure = document.createElement("figure");
+    figure.setAttribute("data-id", data.id); // Ajout d'un attribut id pour repérer l'œuvre
     figure.innerHTML = `<img src=${data.imageUrl} alt=${data.title}>
 				<figcaption>${data.title}</figcaption>`
 document.querySelector(".gallery").append(figure);
@@ -56,9 +57,15 @@ async function deleteWork(workId, figureElement) {
         });
         
         if (response.ok) {
-            // Si la suppression est réussie, retirer l'élément du DOM
+            // Si la suppression est réussie, retirer l'élément de la galerie modale
             figureElement.remove();
             console.log(`Work ${workId} deleted successfully`);
+            
+            // Retirer l'élément correspondant dans la galerie principale
+            const galleryFigure = document.querySelector(`.gallery [data-id='${workId}']`);
+            if (galleryFigure) {
+                galleryFigure.remove();
+            }
         } else {
             throw new Error(`Failed to delete work with status: ${response.status}`);
         }
@@ -66,7 +73,6 @@ async function deleteWork(workId, figureElement) {
         console.error("Error deleting work:", error);
     }
 }
-
 
 //Recuperation des categories depuis l'API//
 async function getCategories() {
@@ -82,7 +88,7 @@ async function getCategories() {
     setFilters(json[i]);
     }
 }  catch (error) {
-    console.error(error.message);
+    //console.error(error.message);
     }
 }
 getCategories();
