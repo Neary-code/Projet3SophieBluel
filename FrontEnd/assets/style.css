@@ -418,6 +418,10 @@ hr {
 	margin: auto;
 }
 
+#preview {
+	height: 169px;
+}
+
 #image {
 	display: flex;
     justify-content: center;
@@ -425,7 +429,7 @@ hr {
 	color: rgba(185, 197, 204, 1);
 }
 
-.add-picture {
+.add-picture-button {
 	width: 200px;
 	height: 36px;
 	border-radius: 50px;
@@ -438,6 +442,18 @@ hr {
 	text-align: center;
 	color: rgba(48, 102, 133, 1);
 	cursor: pointer;
+}
+
+.add-picture-button:hover {
+    background-color: rgba(48, 102, 133, 1);
+	color: white;
+}
+
+#image-preview {
+	display: none;
+	position: absolute;
+	width: 129px;
+	left: 655px;	
 }
 
 #p-modal-2 {

@@ -279,40 +279,42 @@ addPhotoButton.addEventListener("click", function (e) {
      openModal("modal2");  // Ouvre la deuxième modale
 });
 
-//Gestion du formulaire//
-document.getElementById("modal-form").addEventListener("submit", async function(event) {
-    event.preventDefault();
 
-    const token = localStorage.getItem("token");
-    const url = "http://localhost:5678/api/works"
+// Ajouter une photo//
+// Référence aux éléments
+const addPictureButton = document.querySelector(".add-picture-button");
+const addPictureInput = document.getElementById("add-picture-input");
+const addPictureModalContainer = document.querySelector(".add-picture-modal-2");
 
-    //creation d'un objet FormData pour envoyer les donnees//
-    const formData = new FormData();
-    formData.append("title", document.getElementById("title").value);
-    formData.append("category", document.getElementById("category").value);
-    formData.append("image", document.getElementById("image").files[0]);
+// Ouvrir l'explorateur de fichiers au clic sur le bouton "Ajouter photo"
+addPictureButton.addEventListener("click", () => {
+    addPictureInput.click();
+});
 
-    try {
-        const response = await fetch(url, {
-            method: "POST",
-            headers: {
-                "Authorization": `Bearer ${token}` // Ajout du token pour authentification
-            },
-            body: formData // Envoi du FormData
-        });
+// Afficher l'aperçu de l'image sélectionnée dans `.add-picture-modal-2`
+addPictureInput.addEventListener("change", (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        
+        reader.onload = function (e) {
+            // Efface tout aperçu d’image existant dans `.add-picture-modal-2`
+            addPictureModalContainer.innerHTML = '';
 
-        if (response.ok) {
-            // Si le projet est ajouté avec succès, récupère la réponse et ajoute-le à la galerie
-            const newWork = await response.json();
-            setFigure(newWork); // Ajoute à la galerie principale
-            setFigureModal(newWork); // Ajoute à la galerie modale
-            console.log("Projet ajouté avec succès !");
-            
-            closeModal(); // Ferme la modale après la soumission
-        } else {
-            throw new Error(`Erreur lors de l'ajout du projet: ${response.status}`);
-        }
-    } catch (error) {
-        console.error("Erreur lors de l'ajout du projet:", error);
+            // Crée un nouvel élément <img> pour l'aperçu de l'image
+            const imgPreview = document.createElement("img");
+            imgPreview.src = e.target.result;
+            imgPreview.alt = "Aperçu de l'image";
+            imgPreview.id = "preview";
+
+            // Ajoute l'image dans la div `.add-picture-modal-2`
+            addPictureModalContainer.appendChild(imgPreview);
+        };
+        
+        reader.readAsDataURL(file);
+
+    } else {
+alert("Veuillez selectionner une image au format JPEG ou PNG.");
     }
 });
+
