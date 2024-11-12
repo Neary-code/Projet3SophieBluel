@@ -278,3 +278,41 @@ addPhotoButton.addEventListener("click", function (e) {
      closeModal();  // Ferme la première modale
      openModal("modal2");  // Ouvre la deuxième modale
 });
+
+//Gestion du formulaire//
+document.getElementById("modal-form").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const token = localStorage.getItem("token");
+    const url = "http://localhost:5678/api/works"
+
+    //creation d'un objet FormData pour envoyer les donnees//
+    const formData = new FormData();
+    formData.append("title", document.getElementById("title").value);
+    formData.append("category", document.getElementById("category").value);
+    formData.append("image", document.getElementById("image").files[0]);
+
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${token}` // Ajout du token pour authentification
+            },
+            body: formData // Envoi du FormData
+        });
+
+        if (response.ok) {
+            // Si le projet est ajouté avec succès, récupère la réponse et ajoute-le à la galerie
+            const newWork = await response.json();
+            setFigure(newWork); // Ajoute à la galerie principale
+            setFigureModal(newWork); // Ajoute à la galerie modale
+            console.log("Projet ajouté avec succès !");
+            
+            closeModal(); // Ferme la modale après la soumission
+        } else {
+            throw new Error(`Erreur lors de l'ajout du projet: ${response.status}`);
+        }
+    } catch (error) {
+        console.error("Erreur lors de l'ajout du projet:", error);
+    }
+});
