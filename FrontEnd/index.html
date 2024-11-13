@@ -49,8 +49,8 @@
 		<h3 id="titlemodal2">Ajout photo</h3>
 
 		<section id="modal-form">
-			<form action="#" method="post">
-				<div class="add-picture-modal-2">
+			<form id="picture-form" action="#" method="post">
+				<div class="add-picture-modal-2" id="add-picture">
 					<div class="add-picture-container">
 						<i class="fa-regular fa-image" id="image"></i>
 						<button type="button" class="add-picture-button">+ Ajouter photo</button>
@@ -67,7 +67,7 @@
 						<label for="category" id="cat">Catégorie</label>
 						<div class="category-select-wrapper">
 							<select name="category" id="category" required>
-								<option value="tous"></option>
+								<option value="">Sélectionnez une catégorie</option>
 								<option value="objets">Objets</option>
 								<option value="appartement">Appartements</option>
 								<option value="hotel">Hotels & restaurants</option>
