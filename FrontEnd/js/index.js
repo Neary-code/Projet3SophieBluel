@@ -281,7 +281,6 @@ addPhotoButton.addEventListener("click", function (e) {
 
 
 // Ajouter une photo//
-// Référence aux éléments
 const addPictureButton = document.querySelector(".add-picture-button");
 const addPictureInput = document.getElementById("add-picture-input");
 const addPictureModalContainer = document.querySelector(".add-picture-modal-2");
@@ -291,14 +290,14 @@ addPictureButton.addEventListener("click", () => {
     addPictureInput.click();
 });
 
-// Afficher l'aperçu de l'image sélectionnée dans `.add-picture-modal-2`
+// Afficher l'aperçu de l'image sélectionnée dans .add-picture-modal-2
 addPictureInput.addEventListener("change", (event) => {
     const file = event.target.files[0];
     if (file) {
         const reader = new FileReader();
         
         reader.onload = function (e) {
-            // Efface tout aperçu d’image existant dans `.add-picture-modal-2`
+            // Efface .add-picture-modal-2
             addPictureModalContainer.innerHTML = '';
 
             // Crée un nouvel élément <img> pour l'aperçu de l'image
@@ -318,3 +317,50 @@ alert("Veuillez selectionner une image au format JPEG ou PNG.");
     }
 });
 
+//URL de l'API
+const url = "http://localhost:5678/api/works";
+
+//Fonction pour envoyer le formulaire
+async function submitForm(){
+    //valeur du formulaire
+    const title = "#title";
+    const category = "#category";
+    const imageFile = document.querySelector("#add-picture-input").files[0];
+
+    // Cacher le message d'erreur au début
+    const errorMessage = document.querySelector("#error-message");
+    errorMessage.style.display = "none";
+    
+    // Vérifier si une image est sélectionnée
+        if (!imageFile) {
+        errorMessage.style.display = "block";
+        return;  // Arrêter l'exécution si l'image est manquante
+    }
+
+    //Creer un objet formData et ajouter les champs
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("category", category);
+    formData.append("image", imageFile);
+
+    try {
+        //envoyer la requete avec fetch
+        const response = await fetch(url, {
+            method: "POST",
+            body: formData
+        });
+
+        //Verif de la reponse
+        if (response.ok) {
+            const responseData = await response.json();
+            console.log("Formulaire soumis avec succes!", responseData);
+        } else {
+            console.error("Erreur lors de l'envoi", response.status, await response.text());
+        }
+    } catch (error) {
+        console.error("Erreur de requete:", error);
+    }
+}
+
+//Appel de la fonction au clicksur le bouton valider
+document.querySelector(".validation-button").addEventListener("click", submitForm);

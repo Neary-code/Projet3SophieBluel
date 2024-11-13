@@ -429,6 +429,15 @@ hr {
 	color: rgba(185, 197, 204, 1);
 }
 
+#error-message {
+	background-color: #f44336;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 14px;
+    padding: 4px;
+}
+
 .add-picture-button {
 	width: 200px;
 	height: 36px;
