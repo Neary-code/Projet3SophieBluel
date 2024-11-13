@@ -317,78 +317,30 @@ alert("Veuillez selectionner une image au format JPEG ou PNG.");
     }
 });
 
-// URL de l'API
-const url = "http://localhost:5678/api/works";
+// Vérifie si tous les champs sont remplis
+    function checkFormCompletion() {
+    const title = document.querySelector("#title").value;
+    const category = document.querySelector("#category").value;
+    const imageFile = document.querySelector("#add-picture-input").files[0];
 
-// Fonction pour envoyer le formulaire
-async function submitForm() {
-    // Valeurs du formulaire
-    const title = document.querySelector("#title").value; // Récupère la valeur du champ titre
-    const category = document.querySelector("#category").value; // Récupère la valeur de la catégorie
-    const imageFile = document.querySelector("#add-picture-input").files[0]; // Récupère l'image sélectionnée
-
-    // Cacher le message d'erreur au début
-    const errorMessage = document.querySelector("#error-message");
-    errorMessage.style.display = "none";
-
-    // Vérifier si une image est sélectionnée
-    if (!imageFile) {
-        errorMessage.style.display = "block";
-        return; // Arrêter l'exécution si l'image est manquante
-    }
-
-    // Créer un objet formData et ajouter les champs
-    const formData = new FormData();
-    formData.append("title", title); // Ajoute la valeur du titre
-    formData.append("category", category); // Ajoute la valeur de la catégorie
-    formData.append("image", imageFile); // Ajoute le fichier image
-
-    try {
-        // Envoyer la requête avec fetch
-const token = localStorage.getItem("token");
-const response = await fetch(url, {
-    method: "POST",
-    body: formData,
-    headers: {
-        "Authorization": `Bearer ${token}`
-    }
-});
-
-console.log(response);
-
-        // Vérification de la réponse
-        if (response.ok) {
-            const responseData = await response.json();
-            console.log("Formulaire soumis avec succès!", responseData);
-
-            // Ajouter le projet à la galerie et à la modale 1
-            addToGallery(responseData);
-        } else {
-            console.error("Erreur lors de l'envoi", response.status, await response.text());
+        if (title && category && imageFile) {
+            validationButton.classList.add("active"); // Passe en vert
+            validationButton.disabled = false;         // Active le bouton
+            } else {
+                validationButton.classList.remove("active"); // Couleur grise
+                validationButton.disabled = true;            // Désactive le bouton
+            }
         }
-    } catch (error) {
-        console.error("Erreur de requête:", error);
-    }
-}
 
-// Fonction pour ajouter le nouveau projet à la galerie
-function addToGallery(project) {
-    // Sélectionnez l'élément de la galerie dans lequel vous souhaitez ajouter le projet
-    const gallery = document.querySelector(".gallery"); // Assurez-vous que cette classe est correcte
+        async function submitForm() {
+            errorMessage.style.display = "none";
+        }
 
-    // Créez un nouvel élément pour le projet
-    const projectElement = document.createElement("div");
-    projectElement.classList.add("project");
+        // Récupérer les valeurs du formulaire
+        const title = document.querySelector("#title").value;
+        const category = document.querySelector("#category").value;
+        const imageFile = document.querySelector("#add-picture-input").files[0];
 
-    // Ajoutez le contenu du projet
-    projectElement.innerHTML = `
-        <img src="${project.imageUrl}" alt="${project.title}">
-        <p>${project.title}</p>
-    `;
 
-    // Ajoutez le projet à la galerie
-    gallery.appendChild(projectElement);
-}
 
-// Appel de la fonction au clic sur le bouton valider
-document.querySelector(".validation-button").addEventListener("click", submitForm);
+

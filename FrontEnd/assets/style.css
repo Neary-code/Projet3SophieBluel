@@ -563,6 +563,11 @@ hr {
     width: 250px;
 }
 
+/* Style du bouton lorsque tous les champs sont remplis */
+.validation-button.active {
+	background-color: #1D6154;
+}
+
 /*Formulaire de contact*/
 #contact {
 	width: 50%;
