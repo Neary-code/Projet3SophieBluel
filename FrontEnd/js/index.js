@@ -282,16 +282,16 @@ addPhotoButton.addEventListener("click", function (e) {
 
 // Ajouter une photo//
 const addPictureButton = document.querySelector(".add-picture-button");
-const addPictureInput = document.getElementById("add-picture-input");
+const picture = document.getElementById("picture");
 const addPictureModalContainer = document.querySelector(".add-picture-modal-2");
 
 // Ouvrir l'explorateur de fichiers au clic sur le bouton "Ajouter photo"
 addPictureButton.addEventListener("click", () => {
-    addPictureInput.click();
+    picture.click();
 });
 
 // Afficher l'aperçu de l'image sélectionnée dans .add-picture-modal-2
-addPictureInput.addEventListener("change", (event) => {
+picture.addEventListener("change", (event) => {
     const file = event.target.files[0];
     if (file) {
         const reader = new FileReader();
@@ -317,30 +317,66 @@ alert("Veuillez selectionner une image au format JPEG ou PNG.");
     }
 });
 
-// Vérifie si tous les champs sont remplis
-    function checkFormCompletion() {
+async function submitForm() {
+    // Récupérer les valeurs du formulaire
     const title = document.querySelector("#title").value;
     const category = document.querySelector("#category").value;
-    const imageFile = document.querySelector("#add-picture-input").files[0];
+    const imageFile = document.querySelector("#picture").files[0];
 
-        if (title && category && imageFile) {
-            validationButton.classList.add("active"); // Passe en vert
-            validationButton.disabled = false;         // Active le bouton
-            } else {
-                validationButton.classList.remove("active"); // Couleur grise
-                validationButton.disabled = true;            // Désactive le bouton
-            }
+    // Cacher le message d'erreur au début
+    const error = document.querySelector("#error");
+    error.style.display = "none";
+
+    // Vérifier si une image est sélectionnée
+    if (!imageFile) {
+        error.style.display = "block";
+        return;  // Arrêter l'exécution si l'image est manquante
+    }
+
+// Fonction pour vérifier si tous les champs du formulaire sont remplis
+function checkFormCompletion() {
+    const title = titleInput.value.trim();
+    const category = categoryInput.value;
+    const imageFile = imageInput.files[0];
+
+    if (title && category && imageFile) {
+        validationButton.classList.add("active"); // Change la couleur du bouton en vert
+        validationButton.disabled = false;         // Active le bouton
+    } else {
+        validationButton.classList.remove("active"); // Restaure la couleur grise
+        validationButton.disabled = true;            // Désactive le bouton
+    }
+    
+// Ajout d'événements d'écoute pour vérifier chaque champ
+        titleInput.addEventListener("input", checkFormCompletion);
+        categoryInput.addEventListener("change", checkFormCompletion);
+        imageInput.addEventListener("change", checkFormCompletion);
+}
+
+    // Créer un objet FormData et ajouter les champs
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("category", category);
+    formData.append("image", imageFile);
+
+    try {
+        // Envoyer la requête avec fetch
+        const response = await fetch(url, {
+            method: "POST",
+            body: formData
+        });
+
+        // Vérifier la réponse
+        if (response.ok) {
+            const responseData = await response.json();
+            console.log("Formulaire soumis avec succès!", responseData);
+        } else {
+            console.error("Erreur lors de l'envoi", response.status, await response.text());
         }
+    } catch (error) {
+        console.error("Erreur de requête:", error);
+    }
+}
 
-        async function submitForm() {
-            errorMessage.style.display = "none";
-        }
-
-        // Récupérer les valeurs du formulaire
-        const title = document.querySelector("#title").value;
-        const category = document.querySelector("#category").value;
-        const imageFile = document.querySelector("#add-picture-input").files[0];
-
-
-
-
+// Appel de la fonction au clic sur le bouton valider
+document.querySelector(".validation-button").addEventListener("click", submitForm);
