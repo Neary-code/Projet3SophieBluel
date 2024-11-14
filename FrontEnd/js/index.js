@@ -317,22 +317,14 @@ alert("Veuillez selectionner une image au format JPEG ou PNG.");
     }
 });
 
-async function submitForm() {
-    // Récupérer les valeurs du formulaire
-    const title = document.querySelector("#title").value;
-    const category = document.querySelector("#category").value;
-    const imageFile = document.querySelector("#picture").files[0];
-
-    // Cacher le message d'erreur au début
-    const error = document.querySelector("#error");
-    error.style.display = "none";
-
-    // Vérifier si une image est sélectionnée
-    if (!imageFile) {
-        error.style.display = "block";
-        return;  // Arrêter l'exécution si l'image est manquante
-    }
-
+// Déclaration des variables nécessaires en dehors des fonctions pour éviter des erreurs de portée
+const titleInput = document.querySelector("#title");
+const categoryInput = document.querySelector("#category");
+const imageInput = document.querySelector("#picture");
+const validationButton = document.querySelector(".validation-button");
+const error = document.querySelector("#error");
+const url = "http://localhost:5678/api/works";
+const token = ("token")
 // Fonction pour vérifier si tous les champs du formulaire sont remplis
 function checkFormCompletion() {
     const title = titleInput.value.trim();
@@ -346,12 +338,28 @@ function checkFormCompletion() {
         validationButton.classList.remove("active"); // Restaure la couleur grise
         validationButton.disabled = true;            // Désactive le bouton
     }
-    
-// Ajout d'événements d'écoute pour vérifier chaque champ
-        titleInput.addEventListener("input", checkFormCompletion);
-        categoryInput.addEventListener("change", checkFormCompletion);
-        imageInput.addEventListener("change", checkFormCompletion);
 }
+
+// Ajouter les écouteurs d'événements aux champs pour vérifier le remplissage du formulaire
+titleInput.addEventListener("input", checkFormCompletion);
+categoryInput.addEventListener("change", checkFormCompletion);
+imageInput.addEventListener("change", checkFormCompletion);
+
+// Fonction pour soumettre le formulaire
+async function submitForm() {
+    // Récupérer les valeurs du formulaire
+    const title = titleInput.value.trim();
+    const category = categoryInput.value;
+    const imageFile = imageInput.files[0];
+
+    // Cacher le message d'erreur au début
+    error.style.display = "none";
+
+    // Vérifier si une image est sélectionnée
+    if (!imageFile) {
+        error.style.display = "block";
+        return;  // Arrêter l'exécution si l'image est manquante
+    }
 
     // Créer un objet FormData et ajouter les champs
     const formData = new FormData();
@@ -363,6 +371,9 @@ function checkFormCompletion() {
         // Envoyer la requête avec fetch
         const response = await fetch(url, {
             method: "POST",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            },
             body: formData
         });
 
@@ -378,5 +389,6 @@ function checkFormCompletion() {
     }
 }
 
-// Appel de la fonction au clic sur le bouton valider
-document.querySelector(".validation-button").addEventListener("click", submitForm);
+// Appel de la fonction `submitForm` au clic sur le bouton "Valider"
+validationButton.addEventListener("click", submitForm);
+
