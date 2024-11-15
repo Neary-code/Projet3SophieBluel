@@ -39,12 +39,8 @@ Gestion de l'authentification avec un token: Stockage dans localStorage.
 Redirection conditionnelle après connexion.
 
 6 - Fenêtre modale pour la gestion des projets
-- Ajout de projets :
-Sélection de l’image.
-Validation et envoi.
-- Suppression de projets :
-Confirmation via icône poubelle.
-Suppression.
+Ajout de projets: Sélection de l’image, validation et envoi.
+Suppression de projets: Confirmation via icône poubelle, suppression.
 
 7 - Résultats et conclusion
 Portfolio fonctionnel et dynamique.
