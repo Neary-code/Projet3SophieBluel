@@ -100,30 +100,33 @@ function setFilters(data) {
     filters.classList.add("filter");
     filters.dataset.cat = data.id; // Ajoute un attribut data-cat pour lier chaque filtre à une catégorie
     filters.innerHTML = `${data.name}`; // Affiche le nom de la catégorie
-    filters.addEventListener("click", () => filterWorks(data.id)); // Filtre les œuvres par catégorie lorsqu'on clique
-document.querySelector(".filters").append(filters); // Ajoute le filtre à la barre des filtres
+    filters.addEventListener("click", () => fetchAndFilterWorks(data.id)); // Filtre les œuvres par catégorie lorsqu'on clique
+    document.querySelector(".filters").append(filters); // Ajoute le filtre à la barre des filtres
+}
 
-function filterWorks(cat) {
-    console.log(cat)
-}}
-
-//Ajouter un événement de clic et filtre au bouton Tous
+// Ajouter un événement de clic et filtre au bouton Tous
 const buttonAll = document.querySelector(".all");
 buttonAll.addEventListener("click", () => getWorks());
 
-// Fonction pour filtrer les œuvres par catégorie
-async function filterWorks(cat) {
-    const url = `${API_URL}/works`;  // Récupère toutes les œuvres depuis l'API
+// Fonction pour récupérer et filtrer les œuvres par catégorie
+async function fetchAndFilterWorks(cat) {
+    const url = `${API_URL}/works`; // Récupère toutes les œuvres depuis l'API
     try {
         const response = await fetch(url);
         if (!response.ok) {
             throw new Error(`Response status: ${response.status}`); // Vérifie si la réponse est OK
         }
-        const works = await response.json();  // Récupère les œuvres
-        const filteredWorks = works.filter(work => work.categoryId === cat);  // Filtre les œuvres par catégorie
-        displayWorks(filteredWorks);  // Affiche les œuvres filtrées
+        const works = await response.json(); // Récupère les œuvres
+        console.log("Toutes les œuvres :", works);
+
+        // console.log("Œuvres récupérées depuis l'API :", works); // DEBUG : Affiche toutes les œuvres récupérées
+
+        const filteredWorks = works.filter(work => work.categoryId === Number(cat)); // Filtre les œuvres par catégorie
+        console.log("Œuvres filtrées :", filteredWorks);
+
+        displayWorks(filteredWorks); // Affiche les œuvres filtrées
     } catch (error) {
-        console.error(error.message);  // Affiche l'erreur en cas de problème
+        console.error(error.message); // Affiche l'erreur en cas de problème
     }
 }
 
@@ -263,27 +266,25 @@ const stopPropagation = function (e) {
 
  // Ouverture de la première modale (Galerie photo)
 document.querySelector(".js-modal").addEventListener("click", function (e) {
-    e.preventDefault();  // Empêche l'action par défaut du clic
-    openModal("modal1");  // Ouvre la première modale (Galerie photo)
-    // console.log("Modal 1 opened"); // Vérification de l'ouverture de la modale
+    e.preventDefault();
+    openModal("modal1"); // Retour à la première modale
 });
 
-// Fermeture avec la touche Escape
+ // Fermeture avec la touche Escape
 window.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") {  // Si la touche appuyée est Escape
-        closeModal();  // Ferme la modale active
-        // console.log("Modal closed with Escape key"); // Vérification de la fermeture via la touche Escape
+    if (e.key === "Escape") {
+        closeModal();
     }
 });
 
-// Gestion du passage à la modale2 (Ajouter une photo)
+ // Gestion du passage à la modale2 (Ajouter une photo)
 const addPhotoButton = document.querySelector(".add-photo-button");
 addPhotoButton.addEventListener("click", function (e) {
-    e.preventDefault();  // Empêche l'action par défaut du clic
-    closeModal();  // Ferme la première modale
-    openModal("modal2");  // Ouvre la deuxième modale (Ajouter une photo)
-    // console.log("Modal 2 opened (Add photo)"); // Vérification de l'ouverture de la modale 2
+    e.preventDefault();
+     closeModal();  // Ferme la première modale
+     openModal("modal2");  // Ouvre la deuxième modale
 });
+
 
 // Ajouter une photo
 const addPictureButton = document.querySelector(".add-picture-button");
@@ -292,33 +293,33 @@ const addPictureModalContainer = document.querySelector(".add-picture-modal-2");
 
 // Ouvrir l'explorateur de fichiers au clic sur le bouton "Ajouter photo"
 addPictureButton.addEventListener("click", () => {
-    picture.click();  // Lance l'explorateur de fichiers au clic
-    // console.log("File explorer opened for picture selection"); // Vérification que l'explorateur de fichiers a été ouvert
+    picture.click();
 });
 
 // Afficher l'aperçu de l'image sélectionnée dans .add-picture-modal-2
 picture.addEventListener("change", (event) => {
-    const file = event.target.files[0];  // Récupère le fichier sélectionné
+    const file = event.target.files[0];
     if (file) {
-        const reader = new FileReader();  // Crée un lecteur de fichier pour afficher l'aperçu
+        const reader = new FileReader();
+        
         reader.onload = function (e) {
-            // Efface l'ancien contenu de .add-picture-modal-2
+            // Efface .add-picture-modal-2
             addPictureModalContainer.innerHTML = '';
 
-            // Crée un élément <img> pour l'aperçu de l'image
+            // Crée un nouvel élément <img> pour l'aperçu de l'image
             const imgPreview = document.createElement("img");
-            imgPreview.src = e.target.result;  // Affecte l'URL de l'aperçu
+            imgPreview.src = e.target.result;
             imgPreview.alt = "Aperçu de l'image";
             imgPreview.id = "preview";
 
-            // Ajoute l'image dans la div .add-picture-modal-2
+            // Ajoute l'image dans la div `.add-picture-modal-2`
             addPictureModalContainer.appendChild(imgPreview);
-            // console.log("Image preview displayed"); // Vérification de l'affichage de l'aperçu de l'image
         };
         
-        reader.readAsDataURL(file);  // Lit l'image sous forme de Data URL pour l'aperçu
+        reader.readAsDataURL(file);
+
     } else {
-        alert("Veuillez selectionner une image au format JPEG ou PNG.");  // Si aucun fichier n'est sélectionné
+alert("Veuillez selectionner une image au format JPEG ou PNG.");
     }
 });
 
@@ -328,24 +329,21 @@ const categoryInput = document.querySelector("#category");
 const imageInput = document.querySelector("#picture");
 const validationButton = document.querySelector(".validation-button");
 const error = document.querySelector("#error");
-const url = "http://localhost:5678/api/works";  // URL pour envoyer les données des œuvres
-const token = ("token");  // Token d'authentification (à remplacer par la gestion dynamique du token)
+const url = "http://localhost:5678/api/works";
+const token = ("token")
 
 // Fonction pour vérifier si tous les champs du formulaire sont remplis
 function checkFormCompletion() {
-    const title = titleInput.value.trim();  // Récupère et nettoie la valeur du titre
-    const category = categoryInput.value;   // Récupère la valeur de la catégorie
-    const imageFile = imageInput.files[0];  // Récupère le fichier d'image sélectionné
+    const title = titleInput.value.trim();
+    const category = categoryInput.value;
+    const imageFile = imageInput.files[0];
 
-    // Si tous les champs sont remplis, on active le bouton de validation
     if (title && category && imageFile) {
-        validationButton.classList.add("active");  // Change la couleur du bouton en vert
+        validationButton.classList.add("active"); // Change la couleur du bouton en vert
         validationButton.disabled = false;         // Active le bouton
-        // console.log("Form completed, validation button enabled"); // Vérification du remplissage du formulaire
     } else {
         validationButton.classList.remove("active"); // Restaure la couleur grise
         validationButton.disabled = true;            // Désactive le bouton
-        // console.log("Form incomplete, validation button disabled"); // Vérification si le formulaire est incomplet
     }
 }
 
@@ -354,19 +352,19 @@ titleInput.addEventListener("input", checkFormCompletion);
 categoryInput.addEventListener("change", checkFormCompletion);
 imageInput.addEventListener("change", checkFormCompletion);
 
-// Fonction pour récupérer les catégories depuis l'API
 async function fetchCategories() {
     const response = await fetch("http://localhost:5678/api/categories");
-    const categories = await response.json();  // Récupère les catégories en format JSON
-    console.log(categories);  // Affiche les catégories récupérées
+    const categories = await response.json();
+    console.log(categories);
 }
 fetchCategories();
 
+
 // Fonction pour réinitialiser le formulaire après une soumission réussie
 function resetForm() {
-    titleInput.value = "";  // Réinitialise le champ du titre
-    categoryInput.value = "";  // Réinitialise la catégorie sélectionnée
-    imageInput.value = "";  // Réinitialise l'input de l'image
+    titleInput.value = "";
+    categoryInput.value = "";
+    imageInput.value = "";
     
     // Supprime l'aperçu de l'image
     addPictureModalContainer.innerHTML = '';
@@ -374,7 +372,6 @@ function resetForm() {
     // Désactive et remet le bouton de validation à l'état initial
     validationButton.classList.remove("active");
     validationButton.disabled = true;
-    // console.log("Form reset"); // Vérification de la réinitialisation du formulaire
 }
 
 // Fonction pour ajouter l'œuvre à la galerie et à la modale après une soumission réussie
@@ -384,41 +381,39 @@ function updateGallery(work) {
 
     // Ajoute l'œuvre à la galerie modale 1
     setFigureModal(work);
-    // console.log("Work added to gallery and modal:", work); // Vérification que l'œuvre est ajoutée
 }
 
 // Fonction pour afficher un message de confirmation
 function showConfirmationMessage(message) {
     const messageElement = document.getElementById("confirmation-message");
 
-    messageElement.textContent = message;  // Met à jour le contenu du message
+    messageElement.textContent = message;
 
-    // Affiche le message
+// Affiche le message
     messageElement.classList.remove("hidden");
     messageElement.classList.add("show");
 
-    // Masque le message après 3 secondes
+// Masque le message après 3 secondes
     setTimeout(() => {
         messageElement.classList.remove("show");
         messageElement.classList.add("hidden");
     }, 3000);
-    // console.log("Confirmation message displayed:", message); // Vérification de l'affichage du message de confirmation
+
 }
 
 // Fonction pour soumettre le formulaire
 async function submitForm() {
-    const title = titleInput.value.trim();  // Récupère et nettoie la valeur du titre
-    const category = categoryInput.value;   // Récupère la valeur de la catégorie
-    const imageFile = imageInput.files[0];  // Récupère le fichier d'image sélectionné
-    error.style.display = "none";  // Masque le message d'erreur
+    const title = titleInput.value.trim();
+    const category = categoryInput.value;
+    const imageFile = imageInput.files[0];
+    error.style.display = "none";
 
     if (!imageFile) {
-        error.style.display = "block";  // Affiche le message d'erreur si aucune image n'est sélectionnée
-        // console.log("Error: No image file selected"); // Vérification si aucun fichier n'est sélectionné
+        error.style.display = "block";
         return;
     }
 
-    const formData = new FormData();  // Crée un objet FormData pour envoyer les données
+    const formData = new FormData();
     formData.append("title", title);
     formData.append("category", category);
     formData.append("image", imageFile);
@@ -427,28 +422,31 @@ async function submitForm() {
         const response = await fetch(url, {
             method: "POST",
             headers: {
-                "Authorization": `Bearer ${localStorage.getItem("token")}`,  // Ajoute le token d'authentification
+                "Authorization": `Bearer ${localStorage.getItem("token")}`,
             },
-            body: formData,  // Envoie les données du formulaire
+            body: formData,
         });
 
         if (response.ok) {
-            const responseData = await response.json();  // Récupère la réponse de l'API
-            console.log("Formulaire soumis avec succès!", responseData);  // Vérification de la soumission réussie
+            const responseData = await response.json();
+            console.log("Formulaire soumis avec succès!", responseData);
 
-            updateGallery(responseData);  // Met à jour la galerie avec l'œuvre ajoutée
-            resetForm();  // Réinitialise le formulaire
-            closeModal();  // Ferme la modale
+            updateGallery(responseData);
+            resetForm();
+            closeModal();
 
             // Affiche un message de confirmation
             showConfirmationMessage("L'œuvre a été ajoutée avec succès !");
         } else {
-            console.error("Erreur lors de l'envoi", response.status, await response.text());  // Affiche l'erreur en cas de problème
+            console.error("Erreur lors de l'envoi", response.status, await response.text());
         }
     } catch (error) {
-        console.error("Erreur de requête:", error);  // Affiche l'erreur de requête
+        console.error("Erreur de requête:", error);
     }
+
 }
+
+
 
 // Appel de la fonction `submitForm` au clic sur le bouton "Valider"
 validationButton.addEventListener("click", submitForm);
