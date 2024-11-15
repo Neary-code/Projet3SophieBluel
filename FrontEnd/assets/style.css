@@ -570,7 +570,7 @@ hr {
 
 /*Message de confirmation nouvel ajout*/
 #confirmation-message {
-    position: fixed;
+    position: absolute;
     top: 10px;
     right: 10px;
     padding: 10px 20px;
@@ -579,10 +579,13 @@ hr {
     font-size: 16px;
     border-radius: 5px;
     z-index: 1000;
-    display: none; /* Masqué par défaut */
 }
 
-#confirmation-message.show {
+.hidden {
+	display: none;
+}
+
+.show {
     display: block; /* Affiché */
 }
 
