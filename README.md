@@ -28,6 +28,16 @@ Gestion de l'authentification avec un token :
 Stockage dans localStorage.
 Redirection conditionnelle après connexion.
 
+4- Gestion des filtres
+Récupération des catégories via l'API.
+Création dynamique des boutons.
+Gestion des événements clics pour filtrer.
+
+5 - Création de la page de login
+Adaptation d'une page existante pour le login.
+Gestion de l'authentification avec un token: Stockage dans localStorage.
+Redirection conditionnelle après connexion.
+
 6 - Fenêtre modale pour la gestion des projets
 - Ajout de projets :
 Sélection de l’image.
