@@ -568,6 +568,26 @@ hr {
 	background-color: #1D6154;
 }
 
+/*Message de confirmation nouvel ajout*/
+#confirmation-message {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 10px 20px;
+    background-color: #1D6154;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    z-index: 1000;
+    display: none; /* Masqué par défaut */
+}
+
+#confirmation-message.show {
+    display: block; /* Affiché */
+}
+
+
+
 /*Formulaire de contact*/
 #contact {
 	width: 50%;

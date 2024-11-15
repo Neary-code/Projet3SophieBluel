@@ -377,30 +377,42 @@ function updateGallery(work) {
     setFigureModal(work);
 }
 
+// Fonction pour afficher un message de confirmation
+function showConfirmationMessage(message) {
+    const messageElement = document.getElementById("confirmation-message");
+
+    messageElement.textContent = message;
+
+// Affiche le message
+    messageElement.classList.remove("hidden");
+    messageElement.classList.add("show");
+
+// Masque le message après 3 secondes
+    setTimeout(() => {
+        messageElement.classList.remove("show");
+        messageElement.classList.add("hidden");
+    }, 3000);
+
+}
+
 // Fonction pour soumettre le formulaire
 async function submitForm() {
-    // Récupère les valeurs du formulaire
     const title = titleInput.value.trim();
     const category = categoryInput.value;
     const imageFile = imageInput.files[0];
-
-    // Cacher le message d'erreur au début
     error.style.display = "none";
 
-    // Vérifie si une image est sélectionnée
     if (!imageFile) {
         error.style.display = "block";
         return;
     }
 
-    // Crée un objet FormData et ajoute les champs
     const formData = new FormData();
     formData.append("title", title);
     formData.append("category", category);
     formData.append("image", imageFile);
 
     try {
-        // Envoie la requête avec fetch
         const response = await fetch(url, {
             method: "POST",
             headers: {
@@ -409,26 +421,26 @@ async function submitForm() {
             body: formData,
         });
 
-        // Vérifie la réponse
         if (response.ok) {
             const responseData = await response.json();
             console.log("Formulaire soumis avec succès!", responseData);
 
-            // Met à jour la galerie avec l'œuvre ajoutée
             updateGallery(responseData);
-
-            // Réinitialise le formulaire
             resetForm();
-
-            // Ferme la modale
             closeModal();
+
+            // Affiche un message de confirmation
+            showConfirmationMessage("L'œuvre a été ajoutée avec succès !");
         } else {
             console.error("Erreur lors de l'envoi", response.status, await response.text());
         }
     } catch (error) {
         console.error("Erreur de requête:", error);
     }
+
 }
+
+
 
 // Appel de la fonction `submitForm` au clic sur le bouton "Valider"
 validationButton.addEventListener("click", submitForm);
