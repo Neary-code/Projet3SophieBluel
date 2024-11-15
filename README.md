@@ -1,8 +1,10 @@
-# Portfolio-architecte-sophie-bluel
+Portfolio de Sophie Bluel
+Objectifs: Concevoir le site portfolio de l'architecte d'intérieur, Sophie Bluel.
 
-Code du projet 6 d'intégrateur web.
+Missions: En tant que Dev Front-end, on m'a assigné plusieurs tâches :
 
-## Information pour le lancer le code
-
- - Lancer le backend depuis votre terminal en suivant les instruction du fichier ReadMe.
- - Si vous désirez afficher le code du backend et du frontend, faites le dans 2 instances de VSCode différentes pour éviter tout problème
+- Récupérer les travaux dynamiquement via l'api et pouvoir les trier par catégories via des filtres.
+- Intégrer une page de connexion administrateur
+- Ajouter une fenêtre modale où l'on pourra supprimer des travaux ou en ajouter via un formulaire.
+- Récupération et affichage des travaux
+- Le but étant de rendre l'affichage des travaux dynamique, il m'a fallu tout d'abord supprimer la gallerie statique présente dans le fichier HTML.
