@@ -317,7 +317,7 @@ alert("Veuillez selectionner une image au format JPEG ou PNG.");
     }
 });
 
-// Déclaration des variables nécessaires en dehors des fonctions pour éviter des erreurs de portée
+// Déclaration des variables
 const titleInput = document.querySelector("#title");
 const categoryInput = document.querySelector("#category");
 const imageInput = document.querySelector("#picture");
@@ -325,6 +325,7 @@ const validationButton = document.querySelector(".validation-button");
 const error = document.querySelector("#error");
 const url = "http://localhost:5678/api/works";
 const token = ("token")
+
 // Fonction pour vérifier si tous les champs du formulaire sont remplis
 function checkFormCompletion() {
     const title = titleInput.value.trim();
@@ -345,9 +346,40 @@ titleInput.addEventListener("input", checkFormCompletion);
 categoryInput.addEventListener("change", checkFormCompletion);
 imageInput.addEventListener("change", checkFormCompletion);
 
+async function fetchCategories() {
+    const response = await fetch("http://localhost:5678/api/categories");
+    const categories = await response.json();
+    console.log(categories);
+}
+fetchCategories();
+
+
+// Fonction pour réinitialiser le formulaire après une soumission réussie
+function resetForm() {
+    titleInput.value = "";
+    categoryInput.value = "";
+    imageInput.value = "";
+    
+    // Supprime l'aperçu de l'image
+    addPictureModalContainer.innerHTML = '';
+    
+    // Désactive et remet le bouton de validation à l'état initial
+    validationButton.classList.remove("active");
+    validationButton.disabled = true;
+}
+
+// Fonction pour ajouter l'œuvre à la galerie et à la modale après une soumission réussie
+function updateGallery(work) {
+    // Ajoute l'œuvre à la galerie principale
+    setFigure(work);
+
+    // Ajoute l'œuvre à la galerie modale 1
+    setFigureModal(work);
+}
+
 // Fonction pour soumettre le formulaire
 async function submitForm() {
-    // Récupérer les valeurs du formulaire
+    // Récupère les valeurs du formulaire
     const title = titleInput.value.trim();
     const category = categoryInput.value;
     const imageFile = imageInput.files[0];
@@ -355,32 +387,41 @@ async function submitForm() {
     // Cacher le message d'erreur au début
     error.style.display = "none";
 
-    // Vérifier si une image est sélectionnée
+    // Vérifie si une image est sélectionnée
     if (!imageFile) {
         error.style.display = "block";
-        return;  // Arrêter l'exécution si l'image est manquante
+        return;
     }
 
-    // Créer un objet FormData et ajouter les champs
+    // Crée un objet FormData et ajoute les champs
     const formData = new FormData();
     formData.append("title", title);
     formData.append("category", category);
     formData.append("image", imageFile);
 
     try {
-        // Envoyer la requête avec fetch
+        // Envoie la requête avec fetch
         const response = await fetch(url, {
             method: "POST",
             headers: {
-                "Authorization": `Bearer ${token}`
+                "Authorization": `Bearer ${localStorage.getItem("token")}`,
             },
-            body: formData
+            body: formData,
         });
 
-        // Vérifier la réponse
+        // Vérifie la réponse
         if (response.ok) {
             const responseData = await response.json();
             console.log("Formulaire soumis avec succès!", responseData);
+
+            // Met à jour la galerie avec l'œuvre ajoutée
+            updateGallery(responseData);
+
+            // Réinitialise le formulaire
+            resetForm();
+
+            // Ferme la modale
+            closeModal();
         } else {
             console.error("Erreur lors de l'envoi", response.status, await response.text());
         }
@@ -391,4 +432,6 @@ async function submitForm() {
 
 // Appel de la fonction `submitForm` au clic sur le bouton "Valider"
 validationButton.addEventListener("click", submitForm);
+
+
 
