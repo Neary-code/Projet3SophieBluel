@@ -1,7 +1,9 @@
 Portfolio de Sophie Bluel
-Objectifs: Concevoir le site portfolio de l'architecte d'intérieur, Sophie Bluel.
+Objectifs: 
+Concevoir le site portfolio de l'architecte d'intérieur, Sophie Bluel.
 
-Missions: En tant que Dev Front-end, on m'a assigné plusieurs tâches :
+Missions: 
+En tant que Dev Front-end, on m'a assigné plusieurs tâches :
 
 - Récupérer les travaux dynamiquement via l'api et pouvoir les trier par catégories via des filtres.
 - Intégrer une page de connexion administrateur
