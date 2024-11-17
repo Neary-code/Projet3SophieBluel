@@ -446,10 +446,10 @@ async function submitForm() {
 
 }
 
-
-
 // Appel de la fonction `submitForm` au clic sur le bouton "Valider"
 validationButton.addEventListener("click", submitForm);
+
+
 
 
 
